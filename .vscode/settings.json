@@ -1,0 +1,16 @@
+{
+  "ty.enabled": true,
+  "ty.checkOnSave": true,
+  "ty.diagnosticsMode": "openFilesOnly",
+  "ty.showInProblems": true,
+  "ty.severity": "error",
+  "ty.logLevel": "info",
+  "ruff.enable": true,
+  "ruff.lint.enable": true,
+  "ruff.lint.onSave": true,
+  "ruff.format.enable": true,
+  "editor.defaultFormatter": "charliermarsh.ruff",
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff"
+  },
+}
