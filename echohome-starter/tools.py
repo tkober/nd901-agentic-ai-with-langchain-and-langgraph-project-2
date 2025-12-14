@@ -136,7 +136,7 @@ def get_weather_forecast(location: str, days: int = 3) -> Dict[str, Any]:
     return forecast
 
 
-# TODO: Implement get_electricity_prices tool
+# Implement get_electricity_prices tool
 @tool
 def get_electricity_prices(date: str = None) -> Dict[str, Any]:
     """
@@ -151,7 +151,7 @@ def get_electricity_prices(date: str = None) -> Dict[str, Any]:
         prices = {
             "date": ...,
             "pricing_type": "time_of_use",
-            "currency": "USD",
+            "currency": "EUR",
             "unit": "per_kWh",
             "hourly_rates": [
                 {
@@ -172,7 +172,23 @@ def get_electricity_prices(date: str = None) -> Dict[str, Any]:
     # Peak normally between 6 and 22...
     # demand_charge should be 0 if off-peak
 
-    return
+    peak_hours = list(range(6, 22))
+
+    return {
+        "date": date,
+        "pricing_type": "time_of_use",
+        "currency": "EUR",
+        "unit": "per_kWh",
+        "hourly_rates": [
+            {
+                "hour": i,
+                "rate": 0.26 if i in peak_hours else 0.23,
+                "period": "peak" if i in peak_hours else "off peak",
+                "demand_charge": 1 if i in peak_hours else 0,
+            }
+            for i in range(24)
+        ],
+    }
 
 
 @tool
