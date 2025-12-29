@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage
-from langchain.agents import create_agent
+from langgraph.prebuilt import create_react_agent
 from tools import TOOL_KIT
 
 load_dotenv()
@@ -18,7 +18,7 @@ class Agent:
         )
 
         # Create the Energy Advisor agent
-        self.graph = create_agent(
+        self.graph = create_react_agent(
             name="energy_advisor",
             prompt=SystemMessage(content=instructions),
             model=llm,

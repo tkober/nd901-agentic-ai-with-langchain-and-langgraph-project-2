@@ -151,7 +151,7 @@ def get_electricity_prices(date: str = None) -> Dict[str, Any]:
         prices = {
             "date": ...,
             "pricing_type": "time_of_use",
-            "currency": "EUR",
+            "currency": "USD",
             "unit": "per_kWh",
             "hourly_rates": [
                 {
@@ -177,12 +177,12 @@ def get_electricity_prices(date: str = None) -> Dict[str, Any]:
     return {
         "date": date,
         "pricing_type": "time_of_use",
-        "currency": "EUR",
+        "currency": "USD",
         "unit": "per_kWh",
         "hourly_rates": [
             {
                 "hour": i,
-                "rate": 0.26 if i in peak_hours else 0.23,
+                "rate": 0.18 if i in peak_hours else 0.15,
                 "period": "peak" if i in peak_hours else "off peak",
                 "demand_charge": 1 if i in peak_hours else 0,
             }
