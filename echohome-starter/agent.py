@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage, AIMessage
 from langgraph.prebuilt import create_react_agent
 from tools import TOOL_KIT
 
@@ -25,7 +25,7 @@ class Agent:
             tools=TOOL_KIT,
         )
 
-    def invoke(self, question: str, context: str = None) -> str:
+    def invoke(self, question: str, context: str = None):
         """
         Ask the Energy Advisor a question about energy optimization.
 
@@ -44,8 +44,18 @@ class Agent:
 
         messages.append(("user", question))
 
-        # Get response from the agent
-        response = self.graph.invoke(input={"messages": messages})
+        try:
+            # Get response from the agent
+            response = self.graph.invoke(input={"messages": messages})
+
+        except Exception as e:
+            messages.append(
+                AIMessage(
+                    "I ran into an internal error. Please try again. If the error persists, please check the details and modify your question."
+                    f"Error: {type(e).__name__}: {e}"
+                )
+            )
+            response = {"messages": messages}
 
         return response
 
